@@ -5,108 +5,195 @@
     <title>Modelo GLTF en A-Frame</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.2.0/dist/aframe-extras.min.js"></script>
+    <style>
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 100;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-<a-scene background="color: #8ed1fc">
+<div id="controls">
+    <button id="startButton">Iniciar</button>
+    <button id="pauseButton">Pausar</button>
+</div>
+<a-scene>
     <a-assets>
-        <a-asset-item id="sunflower" src="Assets/scene.gltf"></a-asset-item>
+        <a-asset-item id="tallo" src="Assets/tallo.glb"></a-asset-item>
+        <a-asset-item id="flor" src="Assets/flor.glb"></a-asset-item>
+        <img id="pasto-texture" src="Assets/pasto.jpg">
+        <img id="atardecer-texture" src="Assets/atardecer.jpg">
+        <img id="stars-texture" src="Assets/stars.jpg">
     </a-assets>
 
-    <!-- Cámara en primera persona -->
-    <a-entity camera position="0 1.6 35" look-controls></a-entity>
+    <a-entity camera position="0 1.1 40" look-controls></a-entity>
 
-    <!-- Esfera más grande para representar el planeta -->
-    <a-entity id="planet" geometry="primitive: sphere; radius: 50;" material="color: #7BC8A4; side: double" position="0 -50 0"></a-entity>
+    <a-entity id="planet" geometry="primitive: sphere; radius: 60;" material="src: #pasto-texture; side: double" position="0 -60 0"></a-entity>
 
-    <!-- Sol -->
-    <a-entity id="sun" geometry="primitive: sphere; radius: 2;" material="color: yellow;" position="-30 10 0"></a-entity>
+    <a-sky id="sky" color="#8ed1fc"></a-sky>
 
-    <!-- Luna -->
-    <a-entity id="moon" geometry="primitive: sphere; radius: 2;" material="color: #dddddd;" position="30 -10 0"></a-entity>
+    <a-entity id="sun" geometry="primitive: sphere; radius: 2;" material="color: #FF8C00;" position="-30 10 0"></a-entity>
 
-    <!-- Girasoles -->
-    <a-entity id="girasol1" gltf-model="#sunflower" scale="0.01 0.01 0.01" position="0 0 30" rotation="0 -45 0"></a-entity>
-    <a-entity id="girasol2" gltf-model="#sunflower" scale="0.01 0.01 0.01" position="5 0 35" rotation="0 -45 0"></a-entity>
-    <a-entity id="girasol3" gltf-model="#sunflower" scale="0.01 0.01 0.01" position="-5 0 35" rotation="0 -45 0"></a-entity>
-    <a-entity id="girasol4" gltf-model="#sunflower" scale="0.01 0.01 0.01" position="5 0 25" rotation="0 -45 0"></a-entity>
+    <a-entity id="moon" geometry="primitive: sphere; radius: 2;" material="color: #dddddd; emissive: #ffffff; emissiveIntensity: 0.2;" position="30 -10 0"></a-entity>
 
-    <!-- Script para animar la posición del sol y la luna, y rotar los girasoles -->
+    <a-light id="sunLight" type="directional" position="0 10 0" intensity="1" color="#ffffff"></a-light>
+
+    <a-light id="moonLight" type="directional" position="0 10 0" intensity="0.1" color="#888888"></a-light>
+
+    <a-entity id="girasol1" position="5 0 30">
+        <a-entity id="tallo1" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor1" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+    <a-entity id="girasol2" position="5 0 25">
+        <a-entity id="tallo2" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor2" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+    <a-entity id="girasol3" position="-5 0 25">
+        <a-entity id="tallo3" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor3" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+    <a-entity id="girasol4" position="5 0 20">
+        <a-entity id="tallo4" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor4" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+    <a-entity id="girasol5" position="-5 0 20">
+        <a-entity id="tallo5" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor5" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+    <a-entity id="girasol6" position="10 -3 30">
+        <a-entity id="tallo6" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor6" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+    <a-entity id="girasol7" position="-10 -4 30">
+        <a-entity id="tallo7" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor7" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+    <a-entity id="girasol8" position="10 -3 25">
+        <a-entity id="tallo8" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor8" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+    <a-entity id="girasol9" position="-10 -3 25">
+        <a-entity id="tallo9" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor9" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+    <a-entity id="girasol10" position="0 -3 20">
+        <a-entity id="tallo10" gltf-model="#tallo" scale="0.01 0.01 0.01"></a-entity>
+        <a-entity id="flor10" gltf-model="#flor" scale="0.01 0.01 0.01" position="0 0.1 0"></a-entity>
+    </a-entity>
+
     <script>
         var sun = document.querySelector('#sun');
         var moon = document.querySelector('#moon');
-        var girasol1 = document.querySelector('#girasol1');
-        var girasol2 = document.querySelector('#girasol2');
-        var girasol3 = document.querySelector('#girasol3');
-        var girasol4 = document.querySelector('#girasol4');
-        var scene = document.querySelector('a-scene');
+        var sunLight = document.querySelector('#sunLight');
+        var moonLight = document.querySelector('#moonLight');
+        var sky = document.querySelector('#sky');
         var centerPosition = { x: 0, y: 10, z: 0 };
         var a = 30; // Semieje mayor
         var b = 30; // Semieje menor
         var angle = 0;
-        var animating = true;
-        var moonAppeared = false;
-        var originalBackgroundColor = "#8ed1fc";
+        var cycleDuration = 60000; // Duración de un ciclo completo en milisegundos (60 segundos)
+        var angleIncrement = (2 * Math.PI) / (cycleDuration / 16.67); // Ajuste para un ciclo de 60 segundos
+        var sunsetStart = cycleDuration / 2 - 10000; // 10 segundos antes de la noche
+        var sunriseEnd = cycleDuration / 2 + 20000; // 20 segundos después del comienzo del día
+        var isPaused = false;
+        var animating = false;
+
+        var flores = [];
+        for (var i = 1; i <= 10; i++) {
+            flores.push(document.querySelector('#flor' + i));
+        }
 
         function animateSunAndMoon() {
-            angle += 0.01; // Ajusta la velocidad de rotación
-            var x = centerPosition.x + a * Math.cos(angle);
-            var y = centerPosition.y + b * Math.sin(angle) - 20; // Ajuste para que el sol baje más abajo
+            if (!isPaused) {
+                angle += angleIncrement;
+                var x = centerPosition.x + a * Math.cos(angle);
+                var y = centerPosition.y + b * Math.sin(angle) - 20; // Ajuste para que el sol baje más abajo
 
-            sun.setAttribute('position', x + ' ' + y + ' ' + centerPosition.z);
+                sun.setAttribute('position', x + ' ' + y + ' ' + centerPosition.z);
 
-            // Posicionar la luna en la posición opuesta al sol
-            var moonX = centerPosition.x + a * Math.cos(angle + Math.PI);
-            var moonY = centerPosition.y + b * Math.sin(angle + Math.PI) - 20;
+                var moonX = centerPosition.x + a * Math.cos(angle + Math.PI);
+                var moonY = centerPosition.y + b * Math.sin(angle + Math.PI) - 20;
 
-            moon.setAttribute('position', moonX + ' ' + moonY + ' ' + centerPosition.z);
+                moon.setAttribute('position', moonX + ' ' + moonY + ' ' + centerPosition.z);
 
-            if (y >= 0 && !animating) {
-                animating = true;
-            }
+                var currentTime = (angle / (2 * Math.PI)) * cycleDuration;
 
-            if (animating) {
-                // Ajustar la rotación de los girasoles para seguir al sol
-                var rotationAngle = -angle * (180 / Math.PI) - 45;
-                girasol1.setAttribute('rotation', '0 ' + rotationAngle + ' 0');
-                girasol1.object3D.rotation.y = -angle;
-                girasol2.setAttribute('rotation', '0 ' + rotationAngle + ' 0');
-                girasol2.object3D.rotation.y = -angle;
-                girasol3.setAttribute('rotation', '0 ' + rotationAngle + ' 0');
-                girasol3.object3D.rotation.y = -angle;
-                girasol4.setAttribute('rotation', '0 ' + rotationAngle + ' 0');
-                girasol4.object3D.rotation.y = -angle;
+                if (currentTime >= sunsetStart && currentTime <= cycleDuration / 2) {
+                    var progress = (currentTime - sunsetStart) / 10000;
+                    sky.setAttribute('src', '#atardecer-texture');
+                    sunLight.setAttribute('intensity', 1 - progress);
+                    moonLight.setAttribute('intensity', progress * 0.1);
+                }
 
-                if (y < 0) {
-                    animating = false;
-                    resetGirasoles();
+                if (currentTime >= cycleDuration / 2 && currentTime <= sunriseEnd) {
+                    sky.setAttribute('src', '#stars-texture');
+                    sunLight.setAttribute('intensity', 0);
+                    moonLight.setAttribute('intensity', 0.1 + 0.05 * Math.sin(angle * 2)); 
+
+                    flores.forEach(flor => {
+                        flor.setAttribute('animation', 'property: rotation; to: 0 -45 0; dur: 2000; easing: easeInOutQuad');
+                    });
+                }
+
+                if (currentTime > sunriseEnd && currentTime < sunsetStart) {
+                    var progress = (currentTime - sunriseEnd) / 5000; 
+                    var blueValue = Math.min(255, Math.floor(142 + progress * (255 - 142)));
+                    var greenValue = Math.min(255, Math.floor(209 - progress * (209 - 94)));
+                    var redValue = Math.min(255, Math.floor(progress * 255));
+                    var sunriseColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+                    sky.setAttribute('color', sunriseColor);
+                    sunLight.setAttribute('intensity', progress);
+                    moonLight.setAttribute('intensity', (1 - progress) * 0.1);
+                }
+
+                if (currentTime >= sunriseEnd && currentTime < sunsetStart) {
+                    sky.setAttribute('color', '#8ed1fc');
+                }
+
+                if (y >= 0 && !animating) {
+                    animating = true;
+                }
+
+                if (animating) {
+                    var rotationAngle = -angle * (180 / Math.PI) - 45;
+                    flores.forEach(flor => {
+                        flor.setAttribute('rotation', '0 ' + rotationAngle + ' 0');
+                        flor.object3D.rotation.y = -angle;
+                    });
+                }
+
+                if (currentTime >= cycleDuration) {
+                    angle = 0;
+                    currentTime = 0;
+                    location.reload(); // Recarga la página para reiniciar la animación
                 }
             }
 
-            if (y <= -20 && !moonAppeared) {
-                moonAppeared = true;
-                scene.setAttribute('background', 'color: black');
-                moon.setAttribute('visible', 'true');
+            if (!isPaused) {
+                requestAnimationFrame(animateSunAndMoon);
             }
-
-            if (y > -20 && moonAppeared) {
-                moonAppeared = false;
-                scene.setAttribute('background', 'color: ' + originalBackgroundColor);
-            }
-
-            requestAnimationFrame(animateSunAndMoon);
         }
 
-        function resetGirasoles() {
-            girasol1.setAttribute('rotation', '0 -45 0');
-            girasol2.setAttribute('rotation', '0 -45 0');
-            girasol3.setAttribute('rotation', '0 -45 0');
-            girasol4.setAttribute('rotation', '0 -45 0');
-        }
+        document.getElementById('startButton').addEventListener('click', function () {
+            isPaused = false;
+            if (!animating) {
+                animating = true;
+                animateSunAndMoon();
+            }
+        });
+
+        document.getElementById('pauseButton').addEventListener('click', function () {
+            isPaused = true;
+        });
 
         animateSunAndMoon();
     </script>
-
 </a-scene>
 </body>
 </html>
-
